@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://gwcketf6ntis"]
+
+[ext_resource type="PackedScene" uid="uid://chbh35aecp5jt" path="res://scenes/bg.tscn" id="1_sugp2"]
+[ext_resource type="PackedScene" uid="uid://bw0d2u461p8qx" path="res://scenes/Dino.tscn" id="2_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://c4celegvxt6mg" path="res://scenes/ground.tscn" id="3_tbgi4"]
+[ext_resource type="Texture2D" uid="uid://b7hu62vckkpp" path="res://assets/img/background/ground.png" id="4_jyhfs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tbgi4"]
+size = Vector2(621, 26)
+
+[node name="Main" type="Node"]
+
+[node name="BG" parent="." instance=ExtResource("1_sugp2")]
+
+[node name="Dino" parent="." instance=ExtResource("2_jyhfs")]
+position = Vector2(70, 486)
+
+[node name="Ground" parent="." instance=ExtResource("3_tbgi4")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(576, 324)
+
+[node name="platfom" type="StaticBody2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="platfom"]
+position = Vector2(766.57007, 312.80798)
+scale = Vector2(-0.27014875, 0.3009638)
+texture = ExtResource("4_jyhfs")
+centered = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="platfom"]
+position = Vector2(456, 328)
+shape = SubResource("RectangleShape2D_tbgi4")
