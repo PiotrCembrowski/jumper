@@ -1,11 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://gwcketf6ntis"]
+[gd_scene load_steps=6 format=3 uid="uid://gwcketf6ntis"]
 
 [ext_resource type="PackedScene" uid="uid://chbh35aecp5jt" path="res://scenes/bg.tscn" id="1_sugp2"]
+[ext_resource type="Script" uid="uid://bv6s1dqb8o3hm" path="res://scripts/main.gd" id="1_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://bw0d2u461p8qx" path="res://scenes/Dino.tscn" id="2_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://c4celegvxt6mg" path="res://scenes/ground.tscn" id="3_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://sbt8r6ckfb54" path="res://scenes/platform.tscn" id="4_jyhfs"]
 
 [node name="Main" type="Node"]
+script = ExtResource("1_tbgi4")
 
 [node name="BG" parent="." instance=ExtResource("1_sugp2")]
 
