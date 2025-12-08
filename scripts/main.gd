@@ -4,8 +4,10 @@ const DINO_START_POSITION := Vector2i(150, 485)
 const CAM_START_POSITION := Vector2i(576, 324)
 
 const SPEED : int = 1
+var screen_size : Vector2i
 
 func _ready() -> void:
+	screen_size = get_window().size
 	new_game()
 
 
