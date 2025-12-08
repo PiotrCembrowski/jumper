@@ -20,4 +20,4 @@ position = Vector2(70, 486)
 position = Vector2(576, 324)
 
 [node name="platform" parent="." instance=ExtResource("4_jyhfs")]
-position = Vector2(257, -306)
+position = Vector2(44, -296)

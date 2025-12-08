@@ -1,6 +1,6 @@
 extends Node
 
-const DINO_START_POSITION := Vector2i(150, 485)
+const DINO_START_POSITION := Vector2i(350, 150)
 const CAM_START_POSITION := Vector2i(576, 324)
 
 const SPEED : int = 1
