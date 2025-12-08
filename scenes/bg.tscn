@@ -30,6 +30,8 @@ centered = false
 scroll_scale = Vector2(0.8, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax2D3"]
+position = Vector2(-1, -333)
+scale = Vector2(1.0008681, 1.5138888)
 texture = ExtResource("4_gtuxm")
 centered = false
 
