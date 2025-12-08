@@ -6,7 +6,7 @@ const CAM_START_POSITION := Vector2i(576, 324)
 const SPEED : int = 10
 
 func _ready() -> void:
-	pass # Replace with function body.
+	new_game()
 
 
 func new_game():
@@ -16,4 +16,5 @@ func new_game():
 	$Ground.position = Vector2i(0,0)
 
 func _process(delta: float) -> void:
-	pass
+	$Dino.position.x += SPEED
+	$Camera2D.position.x += SPEED
