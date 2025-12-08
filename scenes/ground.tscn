@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://b7hu62vckkpp" path="res://assets/img/background/ground.png" id="1_pybca"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mi8v4"]
-size = Vector2(2304, 80)
+size = Vector2(1152, 80)
 
 [node name="Ground" type="Node2D"]
 
@@ -11,9 +11,10 @@ size = Vector2(2304, 80)
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
 position = Vector2(0, 552)
+scale = Vector2(0.5, 1)
 texture = ExtResource("1_pybca")
 centered = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(1152, 600)
+position = Vector2(576, 600)
 shape = SubResource("RectangleShape2D_mi8v4")
