@@ -1,10 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://b25kxit751rnd"]
+[gd_scene load_steps=3 format=3 uid="uid://b25kxit751rnd"]
 
 [ext_resource type="Texture2D" uid="uid://cpaea0df5l8i2" path="res://assets/img/board.png" id="1_0iqh6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0iqh6"]
+size = Vector2(1232, 76)
 
 [node name="desk" type="Area2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(571.09094, 408)
-scale = Vector2(0.8701704, 0.10677083)
+position = Vector2(-1.0000439, 3)
+scale = Vector2(0.99531245, 0.12034384)
 texture = ExtResource("1_0iqh6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2, 2)
+shape = SubResource("RectangleShape2D_0iqh6")
