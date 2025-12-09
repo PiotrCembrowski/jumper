@@ -10,6 +10,7 @@
 script = ExtResource("1_tbgi4")
 
 [node name="BG" parent="." instance=ExtResource("1_sugp2")]
+scroll_offset = Vector2(1053, -426)
 
 [node name="Dino" parent="." instance=ExtResource("2_jyhfs")]
 position = Vector2(70, 486)
