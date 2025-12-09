@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://8glm5yruwqid"]
+
+[ext_resource type="FontFile" uid="uid://b5ckv4ay4f60f" path="res://assets/fonts/retro.ttf" id="1_ahhtf"]
+
+[node name="HUD" type="CanvasLayer"]
+
+[node name="ScoreLabel" type="Label" parent="."]
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 172.0
+offset_bottom = 56.0
+theme_override_fonts/font = ExtResource("1_ahhtf")
+theme_override_font_sizes/font_size = 40
+text = "SCORE:"
+horizontal_alignment = 1
