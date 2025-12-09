@@ -15,9 +15,7 @@ func new_game():
 	$Dino.velocity = Vector2i(0,0)
 	$Camera2D.position = CAM_START_POSITION
 	$platform.position = Vector2i(0,-250)
-
-
-
+	
 func _process(delta: float) -> void:
 	$Camera2D.position.y -= SPEED
 	print($Camera2D.position.y)
