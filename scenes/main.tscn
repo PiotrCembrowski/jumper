@@ -10,15 +10,16 @@
 script = ExtResource("1_tbgi4")
 
 [node name="BG" parent="." instance=ExtResource("1_sugp2")]
+scroll_offset = Vector2(37, -9)
 
 [node name="Dino" parent="." instance=ExtResource("2_jyhfs")]
-position = Vector2(202, 492)
+position = Vector2(345, 888)
 
 [node name="Ground" parent="." instance=ExtResource("3_tbgi4")]
-position = Vector2(3, 2)
+position = Vector2(54, 287)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(576, 324)
 
 [node name="platform" parent="." instance=ExtResource("4_jyhfs")]
-position = Vector2(47, -276)
+position = Vector2(8, 409)

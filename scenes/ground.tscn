@@ -10,11 +10,11 @@ size = Vector2(1040, 80)
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
-position = Vector2(0, 552)
+position = Vector2(0, 900)
 scale = Vector2(0.4513889, 1)
 texture = ExtResource("1_pybca")
 centered = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(520, 600)
+position = Vector2(520, 936)
 shape = SubResource("RectangleShape2D_mi8v4")

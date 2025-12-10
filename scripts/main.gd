@@ -1,9 +1,9 @@
 extends Node
 
-const DINO_START_POSITION := Vector2i(350, 150)
-const CAM_START_POSITION := Vector2i(576, 324)
+const DINO_START_POSITION := Vector2i(350, 0)
+const CAM_START_POSITION := Vector2i(576, 648)
 
-const SPEED : int = 4
+const SPEED : int = 1
 var screen_size : Vector2i
 
 func _ready() -> void:

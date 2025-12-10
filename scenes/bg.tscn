@@ -4,18 +4,17 @@
 [ext_resource type="Texture2D" uid="uid://d3k7m3hk1yv2n" path="res://assets/img/background/plx-2.png" id="2_wh7op"]
 
 [node name="BG" type="Parallax2D"]
+repeat_size = Vector2(0, 643)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(1.9999998, 579)
-scale = Vector2(0.9027778, 0.9938272)
+scale = Vector2(0.93229175, 0.9938272)
 texture = ExtResource("1_h0vxs")
 centered = false
 
 [node name="Parallax2D" type="Parallax2D" parent="."]
 scroll_scale = Vector2(0.6, 1)
-repeat_size = Vector2(0, 576)
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax2D"]
-scale = Vector2(0.9045139, 1)
+scale = Vector2(0.9357639, 1)
 texture = ExtResource("2_wh7op")
 centered = false
