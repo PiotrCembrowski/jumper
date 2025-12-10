@@ -5,16 +5,19 @@
 
 [node name="BG" type="Parallax2D"]
 repeat_size = Vector2(0, 643)
+repeat_times = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 637)
 scale = Vector2(0.93229175, 0.9938272)
 texture = ExtResource("1_h0vxs")
 centered = false
 
 [node name="Parallax2D" type="Parallax2D" parent="."]
-scroll_scale = Vector2(0.6, 1)
+repeat_times = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax2D"]
+position = Vector2(2, 633)
 scale = Vector2(0.9357639, 1)
 texture = ExtResource("2_wh7op")
 centered = false

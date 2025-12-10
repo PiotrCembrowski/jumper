@@ -1,7 +1,7 @@
 extends Node
 
-const DINO_START_POSITION := Vector2i(350, 0)
-const CAM_START_POSITION := Vector2i(576, 648)
+const DINO_START_POSITION := Vector2i(350, 100)
+const CAM_START_POSITION := Vector2i(576, -200)
 
 const SPEED : int = 1
 var screen_size : Vector2i
@@ -14,7 +14,7 @@ func new_game():
 	$Dino.position = DINO_START_POSITION
 	$Dino.velocity = Vector2i(0,0)
 	$Camera2D.position = CAM_START_POSITION
-	$platform.position = Vector2i(0,-250)
+	$platform.position = Vector2i(0,-150)
 	$BG.position = Vector2i(0,0)
 	
 func _process(delta: float) -> void:
