@@ -9,6 +9,8 @@ bool running, fullscreen;
 SDL_Renderer* renderer;
 SDL_Window* window;
 
+int framesCount, timerFPS, lastFrame, fps;
+
 void update(){
 
 }
