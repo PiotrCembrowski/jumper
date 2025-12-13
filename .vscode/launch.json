@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/piotrcembrowski/Desktop/code/gry/jumper",
+      "program": "/Users/piotrcembrowski/Desktop/code/gry/jumper/build/Debug/outDebug"
+    }
+  ]
+}
