@@ -1,6 +1,48 @@
 #include <SDL2/SDL.h>
 #include <iostream>
 
+class Player {
+public:
+    Player(float x, float y) {
+        rect.x = x;
+        rect.y = y;
+        rect.w = 50; // Szerokość
+        rect.h = 50; // Wysokość
+        speed = 300.0f; // Piksele na sekundę
+    }
+
+    void handleInput(const Uint8* keystates) {
+        if (keystates[SDL_SCANCODE_LEFT])  velocity.x = -1;
+        else if (keystates[SDL_SCANCODE_RIGHT]) velocity.x = 1;
+        else velocity.x = 0;
+
+        if (keystates[SDL_SCANCODE_UP])    velocity.y = -1;
+        else if (keystates[SDL_SCANCODE_DOWN])  velocity.y = 1;
+        else velocity.y = 0;
+    }
+
+    void update(float deltaTime) {
+        posX += velocity.x * speed * deltaTime;
+        posY += velocity.y * speed * deltaTime;
+
+        rect.x = (int)posX;
+        rect.y = (int)posY;
+    }
+
+    void draw(SDL_Renderer* renderer) {
+        SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255); // Zielony gracz
+        SDL_RenderFillRect(renderer, &rect);
+    }
+
+private:
+    SDL_Rect rect;
+    float posX = 100.0f, posY = 100.0f;
+    float speed;
+    struct { float x = 0, y = 0; } velocity;
+};
+
+
+
 // Configuration Constants
 const int WINDOW_WIDTH = 1280;
 const int WINDOW_HEIGHT = 720;
@@ -32,7 +74,7 @@ int main(int argc, char* argv[]) {
     // 3. CREATE RENDERER
     // The renderer is the GPU context. We use hardware acceleration and VSync.
     SDL_Renderer* renderer = SDL_CreateRenderer(
-        window, 
+        window,
         -1, // Initialize the first supported rendering driver
         SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC
     );
@@ -78,7 +120,7 @@ int main(int argc, char* argv[]) {
         // player.x += speed * deltaTime;
 
         // --- D. RENDER PHASE ---
-        
+
         // 1. Clear the screen (Set draw color to black first)
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // R, G, B, Alpha
         SDL_RenderClear(renderer);
