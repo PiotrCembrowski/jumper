@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "Config.h"
 
+// Note the Player:: before every function name!
 Player::Player(float startX, float startY) : x(startX), y(startY), dy(0), w(64), h(64), frame(0), timer(0) {}
 
 void Player::handleInput() {
@@ -13,13 +14,11 @@ void Player::update() {
     dy += GRAVITY;
     y += dy;
 
-    // Floor collision
-    if (y + h > SCREEN_HEIGHT) {
-        y = SCREEN_HEIGHT - h;
-        dy = JUMP_FORCE;
+    if (y + h > GROUND_Y && dy > 0) { 
+        y = GROUND_Y - h;
+        dy = JUMP_FORCE; 
     }
 
-    // Animation
     timer++;
     if (timer > 8) {
         frame = (frame + 1) % 24;
