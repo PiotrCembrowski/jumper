@@ -1,7 +1,7 @@
 {
   "configurations": [
     {
-      "name": "Mac",
+      "name": "macos-clang-x64",
       "includePath": [
         "${workspaceFolder}/**",
         "/usr/local/Homebrew/include",
@@ -11,9 +11,9 @@
         "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks"
       ],
       "compilerPath": "/usr/bin/clang",
-      "cStandard": "c17",
-      "cppStandard": "c++17",
-      "intelliSenseMode": "macos-clang-arm64"
+      "cStandard": "${default}",
+      "cppStandard": "${default}",
+      "intelliSenseMode": "macos-clang-x64"
     }
   ],
   "version": 4
