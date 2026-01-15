@@ -1,22 +1,22 @@
 #pragma once
 #include <SDL.h>
+#include <vector>     // Add this
+#include "Platform.h" // Add this
 
 class Player {
 public:
     Player(float startX, float startY);
     void handleInput();
-    void update();
+    // Update this line to match the .cpp file:
+    void update(const std::vector<Platform>& platforms); 
     void draw(SDL_Renderer* renderer, SDL_Texture* spriteSheet);
 
 private:
-    float x, y;
-    float dx, dy;
+    float x, y, dx, dy;
     int w, h;
-    
     bool isGrounded;
-    bool isJumping;    // New: Tracks if we are currently in a "boosting" phase
-    int jumpCounter;  // New: Tracks how many frames W has been held
-
+    bool isJumping;
+    int jumpCounter;
     int frame, timer;
     const int FRAME_WIDTH = 24;
     const int FRAME_HEIGHT = 24;

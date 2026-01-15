@@ -1,19 +1,20 @@
 #include "Player.h"
 #include "Config.h"
+#include "Platform.h"
+#include <vector>
 
+// 1. MUST HAVE Player:: here
 Player::Player(float startX, float startY) 
     : x(startX), y(startY), dx(0), dy(0), w(64), h(64), 
       isGrounded(false), isJumping(false), jumpCounter(0), frame(0), timer(0) {}
 
+// 2. MUST HAVE Player:: here
 void Player::handleInput() {
     const Uint8* state = SDL_GetKeyboardState(NULL);
-
     if (isGrounded) {
         dx = 0; 
         if (state[SDL_SCANCODE_A]) dx = -PLAYER_SPEED;
         if (state[SDL_SCANCODE_D]) dx = PLAYER_SPEED;
-
-        // START JUMP
         if (state[SDL_SCANCODE_W]) {
             dy = INITIAL_JUMP_FORCE;
             isGrounded = false;
@@ -21,21 +22,19 @@ void Player::handleInput() {
             jumpCounter = 0;
         }
     } else {
-        // VARIABLE JUMP LOGIC (While in the air)
         if (isJumping) {
-            // If still holding W and haven't reached max time, add upward force
             if (state[SDL_SCANCODE_W] && jumpCounter < MAX_JUMP_TIME) {
                 dy += JUMP_HOLD_ADDITION;
                 jumpCounter++;
             } else {
-                // Stop boosting if W is released or time is up
                 isJumping = false;
             }
         }
     }
 }
 
-void Player::update() {
+// 3. MUST HAVE Player:: here (and match the new signature with vector)
+void Player::update(const std::vector<Platform>& platforms) {
     dy += GRAVITY;
     x += dx;
     y += dy;
@@ -45,8 +44,21 @@ void Player::update() {
         dy = 0;
         dx = 0;
         isGrounded = true;
-        isJumping = false; // Reset jump state when landing
-        jumpCounter = 0;
+        isJumping = false;
+    }
+
+    for (const auto& plat : platforms) {
+        SDL_Rect platRect = plat.getRect();
+        if (dy > 0 && 
+            x + w/2 > platRect.x && x + w/2 < platRect.x + platRect.w &&
+            y + h > platRect.y && y + h < platRect.y + 10) 
+        {
+            y = platRect.y - h;
+            dy = 0;
+            dx = 0;
+            isGrounded = true;
+            isJumping = false;
+        }
     }
 
     timer++;
@@ -56,6 +68,7 @@ void Player::update() {
     }
 }
 
+// 4. MUST HAVE Player:: here
 void Player::draw(SDL_Renderer* renderer, SDL_Texture* spriteSheet) {
     SDL_Rect srcRect = { frame * FRAME_WIDTH, 0, FRAME_WIDTH, FRAME_HEIGHT };
     SDL_Rect destRect = { (int)x, (int)y, w, h };
