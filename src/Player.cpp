@@ -68,10 +68,24 @@ void Player::update(const std::vector<Platform>& platforms) {
     }
 }
 
+void Player::reset(float startX, float startY) {
+    x = startX;
+    y = startY;
+    dx = 0;
+    dy = 0;
+    isGrounded = false;
+    isJumping = false;
+    jumpCounter = 0;
+    frame = 0;
+    timer = 0;
+}
+
 // 4. MUST HAVE Player:: here
-void Player::draw(SDL_Renderer* renderer, SDL_Texture* spriteSheet) {
+void Player::draw(SDL_Renderer* renderer, SDL_Texture* spriteSheet, float cameraY) {
     SDL_Rect srcRect = { frame * FRAME_WIDTH, 0, FRAME_WIDTH, FRAME_HEIGHT };
-    SDL_Rect destRect = { (int)x, (int)y, w, h };
+    // We subtract cameraY here!
+    SDL_Rect destRect = { (int)x, (int)(y - cameraY), w, h }; 
+    
     SDL_RendererFlip flip = (dx < 0) ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
     SDL_RenderCopyEx(renderer, spriteSheet, &srcRect, &destRect, 0, NULL, flip);
 }

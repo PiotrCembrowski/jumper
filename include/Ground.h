@@ -4,9 +4,7 @@
 class Ground {
 public:
     Ground();
-    void draw(SDL_Renderer* renderer, SDL_Texture* texture);
-    int getY() const { return y; }
-
+    void draw(SDL_Renderer* renderer, SDL_Texture* texture, float cameraY);
 private:
     int x, y, w, h;
 };
