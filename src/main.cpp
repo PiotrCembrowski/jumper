@@ -56,7 +56,8 @@ int main(int argc, char* argv[]) {
 
             // 3. Randomize the height gap (between 100 and 140 pixels)
             // This ensures it is ALWAYS reachable with your jump force
-            float newY = lastY - (100 + (rand() % 41)); 
+
+            float newY = lastY - (100 + (rand() % 50));
 
             platforms.push_back(Platform(newX, newY));
         }
@@ -66,19 +67,11 @@ int main(int argc, char* argv[]) {
         bool fellOffBottom = (player.getY() > cameraY + SCREEN_HEIGHT);
 
         if (fellOffBottom ) {
-            // 1. Reset Camera back to start
             cameraY = 0;
-
-            // 2. Reset Player to starting position
-            // We use 400, 300 to give them a moment to fall onto the starter platform
             player.reset(400, 300);
-
-            // 3. Clear and Reset Platforms
             platforms.clear();
-            // Add a wide "safety" platform at the start so the player has a place to land
-            platforms.push_back(Platform(300, 500)); 
-
-            std::cout << "Mort went out of bounds! Resetting..." << std::endl;
+            platforms.push_back(Platform(300, 500));
+            std::cout << "Mort out of bounds! Resetting..." << std::endl;
         }
 
         // 2. CHECK FOR GAME OVER

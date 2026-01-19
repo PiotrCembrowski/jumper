@@ -1,74 +1,84 @@
+#include <SDL.h>
+#include <vector>
+#include "Platform.h"
 #include "Player.h"
 #include "Config.h"
-#include "Platform.h"
-#include <vector>
 
-// 1. MUST HAVE Player:: here
 Player::Player(float startX, float startY) 
     : x(startX), y(startY), dx(0), dy(0), w(64), h(64), 
       isGrounded(false), isJumping(false), jumpCounter(0), frame(0), timer(0) {}
 
-// 2. MUST HAVE Player:: here
 void Player::handleInput() {
     const Uint8* state = SDL_GetKeyboardState(NULL);
+
     if (isGrounded) {
-        dx = 0; 
-        if (state[SDL_SCANCODE_A]) dx = -PLAYER_SPEED;
-        if (state[SDL_SCANCODE_D]) dx = PLAYER_SPEED;
+        // Horizontal logic
+        if (state[SDL_SCANCODE_A]) dx -= ACCEL;
+        else if (state[SDL_SCANCODE_D]) dx += ACCEL;
+        else dx *= FRICTION;
+
+        // Start Jump
         if (state[SDL_SCANCODE_W]) {
-            dy = INITIAL_JUMP_FORCE;
+            dy = INITIAL_JUMP_FORCE; // Start with a small hop
             isGrounded = false;
-            isJumping = true;
-            jumpCounter = 0;
+            isJumping = true;      // Enable boosting
+            jumpCounter = 0;       // Reset timer
         }
     } else {
+        // --- VARIABLE JUMP LOGIC ---
         if (isJumping) {
+            // If button is STILL held and we haven't reached max boost time
             if (state[SDL_SCANCODE_W] && jumpCounter < MAX_JUMP_TIME) {
-                dy += JUMP_HOLD_ADDITION;
+                dy += JUMP_HOLD_ADDITION; // Add more upward force
                 jumpCounter++;
             } else {
+                // If button is released or time is up, stop boosting
                 isJumping = false;
             }
         }
     }
+
+    // Clamp horizontal speed
+    if (dx > MAX_SPEED) dx = MAX_SPEED;
+    if (dx < -MAX_SPEED) dx = -MAX_SPEED;
 }
 
-// 3. MUST HAVE Player:: here (and match the new signature with vector)
+// ... update() and draw() remain the same ...
+
 void Player::update(const std::vector<Platform>& platforms) {
     dy += GRAVITY;
     x += dx;
     y += dy;
 
+    // --- SCREEN BOUNDARY CHECK ---
+    if (x < 0) {
+        x = 0;
+        dx = 0; // Stop velocity if hitting a wall
+    }
+    if (x + w > SCREEN_WIDTH) {
+        x = SCREEN_WIDTH - w;
+        dx = 0;
+    }
+
+    // --- GROUND COLLISION ---
     if (y + h > GROUND_Y) {
         y = GROUND_Y - h;
         dy = 0;
-        dx = 0;
         isGrounded = true;
         isJumping = false;
     }
 
+    // --- PLATFORM COLLISION ---
     for (const auto& plat : platforms) {
         SDL_Rect platRect = plat.getRect();
-        if (dy > 0 && 
-            x + w/2 > platRect.x && x + w/2 < platRect.x + platRect.w &&
-            y + h > platRect.y && y + h < platRect.y + 10) 
-        {
+        if (dy > 0 && x + w/2 > platRect.x && x + w/2 < platRect.x + platRect.w &&
+            y + h > platRect.y && y + h < platRect.y + 10) {
             y = platRect.y - h;
             dy = 0;
-            dx = 0;
             isGrounded = true;
             isJumping = false;
         }
     }
-
-    timer++;
-    if (timer > 8) {
-        frame = (frame + 1) % 24;
-        timer = 0;
-    }
-
-    if (x + w < 0) x = SCREEN_WIDTH;
-    else if (x > SCREEN_WIDTH) x = -w;
 }
 
 void Player::reset(float startX, float startY) {
