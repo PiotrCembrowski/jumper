@@ -61,15 +61,24 @@ int main(int argc, char* argv[]) {
             platforms.push_back(Platform(newX, newY));
         }
 
-        // --- GAME OVER LOGIC ---
-        // If Mort's Y position is greater than the bottom of the camera view
+        // --- IMPROVED GAME OVER / RESET LOGIC ---
 
-        player.handleInput();
-        player.update(platforms);
+        bool fellOffBottom = (player.getY() > cameraY + SCREEN_HEIGHT);
 
-        // 1. Update Camera
-        if (player.getY() < cameraY + SCREEN_HEIGHT / 2) {
-            cameraY = player.getY() - SCREEN_HEIGHT / 2;
+        if (fellOffBottom ) {
+            // 1. Reset Camera back to start
+            cameraY = 0;
+
+            // 2. Reset Player to starting position
+            // We use 400, 300 to give them a moment to fall onto the starter platform
+            player.reset(400, 300);
+
+            // 3. Clear and Reset Platforms
+            platforms.clear();
+            // Add a wide "safety" platform at the start so the player has a place to land
+            platforms.push_back(Platform(300, 500)); 
+
+            std::cout << "Mort went out of bounds! Resetting..." << std::endl;
         }
 
         // 2. CHECK FOR GAME OVER

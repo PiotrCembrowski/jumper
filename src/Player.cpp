@@ -66,6 +66,9 @@ void Player::update(const std::vector<Platform>& platforms) {
         frame = (frame + 1) % 24;
         timer = 0;
     }
+
+    if (x + w < 0) x = SCREEN_WIDTH;
+    else if (x > SCREEN_WIDTH) x = -w;
 }
 
 void Player::reset(float startX, float startY) {
