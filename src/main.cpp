@@ -22,11 +22,17 @@ int main(int argc, char* argv[]) {
     SDL_Texture* groundTex = IMG_LoadTexture(renderer, "assets/img/background/ground.png");
     SDL_Texture* platTex   = IMG_LoadTexture(renderer, "assets/img/background/plx-3.png");
 
-    // Game State
-    Player player(400, 400);
+    // Game State Initialization
+    // Start Mort on the ground (GROUND_Y - player_height)
+    float startX = 400.0f;
+    float startY = GROUND_Y - 64.0f; 
+    Player player(startX, startY);
     Ground ground;
+    
     std::vector<Platform> platforms;
-    platforms.push_back(Platform(340, 500)); 
+    // First platform at 1/3 screen height above ground
+    float firstPlatY = GROUND_Y - (SCREEN_HEIGHT / 3.0f);
+    platforms.push_back(Platform(340, firstPlatY)); 
 
     float cameraY = 0;
     int score = 0;
@@ -47,9 +53,8 @@ int main(int argc, char* argv[]) {
             cameraY = player.getY() - SCREEN_HEIGHT / 2;
         }
 
-        // 3. Scoring: Height-based (Pixels climbed / 10)
-        // Calculating score relative to starting position (Y=400)
-        int currentHeight = (int)(400 - player.getY()) / 10;
+        // 3. Scoring: Height-based (relative to starting ground)
+        int currentHeight = (int)(startY - player.getY()) / 10;
         if (currentHeight > score) {
             score = currentHeight;
             std::cout << "Score: " << score << std::endl;
@@ -63,19 +68,27 @@ int main(int argc, char* argv[]) {
             float minX = std::max(0.0f, lastX - 200.0f);
             float maxX = std::min((float)SCREEN_WIDTH - PLATFORM_W, lastX + 200.0f);
             float newX = minX + (rand() % (int)(maxX - minX + 1));
+            
+            // Gap between 100 and 150 pixels for reachability
             float newY = lastY - (100 + (rand() % 51));
 
             platforms.push_back(Platform(newX, newY));
         }
 
         // 5. Reset Logic (Bottom, Left, or Right death)
-        if (player.getY() > cameraY + SCREEN_HEIGHT || player.getX() < -50 || player.getX() > SCREEN_WIDTH + 50) {
+        bool fellOffBottom = (player.getY() > cameraY + SCREEN_HEIGHT);
+        bool offLeft       = (player.getX() < -50);
+        bool offRight      = (player.getX() > SCREEN_WIDTH + 50);
+
+        if (fellOffBottom || offLeft || offRight) {
             std::cout << "Game Over! Final Score: " << score << std::endl;
+            
             cameraY = 0;
             score = 0;
-            player.reset(400, 300);
+            player.reset(startX, startY);
+            
             platforms.clear();
-            platforms.push_back(Platform(340, 500));
+            platforms.push_back(Platform(340, GROUND_Y - (SCREEN_HEIGHT / 3.0f)));
         }
 
         // 6. Memory Cleanup
@@ -84,9 +97,14 @@ int main(int argc, char* argv[]) {
         // 7. Rendering
         SDL_RenderClear(renderer);
         SDL_RenderCopy(renderer, bgTex, NULL, NULL);
+        
+        // Render ground only if it's visible within the camera view
         ground.draw(renderer, groundTex, cameraY);
+        
         for (auto& p : platforms) p.draw(renderer, platTex, cameraY);
+        
         player.draw(renderer, mortTex, cameraY);
+        
         SDL_RenderPresent(renderer);
     }
 
